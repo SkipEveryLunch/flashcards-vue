@@ -12,31 +12,23 @@
         {{questions[progress].back}}
         </div>
       </div>
-    </div>
-    <div class="flex justify-center">
-        <button
-        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        v-if="phase==='answering'" @click="showAnswer">Answer</button>
-        <button 
-        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        v-else-if="phase==='checking'"
-        @click="nextQuestion">
-          Next
-        </button>
-        <button 
-        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        v-else-if="phase==='done'">
-          Done
-        </button>
-      </div>
-    </div>
+    </div> 
+    <CardsButton :phase="phase"
+    @show-answer="showAnswer"
+    @next-question="nextQuestion"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent,ref } from 'vue';
+import CardsButton from "@/components/CardsButton.vue"
 
 export default defineComponent({
   name: 'Home',
+  components:{
+    CardsButton 
+  },
   setup(){
     const progress = ref(0);
     const phase = ref("answering");
