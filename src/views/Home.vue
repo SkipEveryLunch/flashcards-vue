@@ -1,33 +1,29 @@
 <template>
-  <div class="flex-col justify-between">
+  <div class="h-1/2 flex flex-col justify-around">
     <div class="flex-col">
-      <div class="flex justify-center">
-        <div>
-      {{questions[progress].front}}
-        </div>
-      </div>
-      <div v-if="phase==='checking'"
-       class="flex justify-center">
-        <div>
-        {{questions[progress].back}}
-        </div>
-      </div>
+      <CardsText :phase="phase" 
+      :front="questions[progress].front"
+      :back="questions[progress].back"/>
     </div> 
-    <CardsButton :phase="phase"
-    @show-answer="showAnswer"
-    @next-question="nextQuestion"
-    />
+    <div>
+      <CardsButton :phase="phase"
+      @show-answer="showAnswer"
+      @next-question="nextQuestion"
+      />
+    </div> 
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent,ref } from 'vue';
 import CardsButton from "@/components/CardsButton.vue"
+import CardsText from '@/components/CardsText.vue';
 
 export default defineComponent({
   name: 'Home',
   components:{
-    CardsButton 
+    CardsButton,
+    CardsText
   },
   setup(){
     const progress = ref(0);
@@ -40,7 +36,7 @@ export default defineComponent({
         phase.value = "answering";
         progress.value += 1;
       }else{
-        phase.value = "done";
+        phase.value = "finished";
       }
     }
     const questions = ref([
