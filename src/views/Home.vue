@@ -11,6 +11,9 @@
       @next-question="nextQuestion"
       />
     </div> 
+    <Modal v-if="isModalOn"
+    @modal-off="modalOff"
+    :modalMessages="modalMessages"/>
   </div>
 </template>
 
@@ -18,12 +21,14 @@
 import { defineComponent,ref } from 'vue';
 import CardsButton from "@/components/CardsButton.vue"
 import CardsText from '@/components/CardsText.vue';
+import Modal from '@/components/Modal.vue';
 
 export default defineComponent({
   name: 'Home',
   components:{
     CardsButton,
-    CardsText
+    CardsText,
+    Modal
   },
   setup(){
     const progress = ref(0);
@@ -53,8 +58,24 @@ export default defineComponent({
         back:"this is a cupboard"
       }
     ])
+    const modalMessages = [{
+      header:"this is paragraph one",
+      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+    },
+    {
+      header:"this is paragraph two",
+      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+    },    {
+      header:"this is paragraph three",
+      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+    }]
+    const isModalOn = ref(true);
+    const modalOff =()=>{
+      isModalOn.value = false;
+    }
     return{
-      progress,questions,phase,showAnswer,nextQuestion
+      progress,questions,phase,showAnswer,nextQuestion,modalMessages,isModalOn,
+      modalOff
     }
   }
 });
