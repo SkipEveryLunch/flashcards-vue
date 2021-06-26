@@ -8,13 +8,10 @@
     <div class="flex justify-around">
       <div>
         <router-link class="text-blue-300" to="/"
-        >Study</router-link
+        >Index</router-link
         >
       </div>
       <div>
-        <router-link class="text-blue-300" to="/edit"
-        >Edit</router-link
-        >
       </div>
     </div>
   </header>

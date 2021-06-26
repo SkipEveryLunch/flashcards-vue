@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import StudySection from '../views/StudySection.vue'
-import EditSection from '../views/EditSection.vue'
+import SectionsIndex from '../views/SectionsIndex.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'StudySection',
-    component: StudySection
+    name: 'SectionsIndex',
+    component: SectionsIndex
   },
   {
-    path: '/edit',
-    name: 'EditSection',
-    component: EditSection
+    path: '/section/:sectionId',
+    name: 'StudySection',
+    component: StudySection
   }
 ]
 

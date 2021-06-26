@@ -1,67 +1,51 @@
 import { createStore } from 'vuex'
+import {Section} from "@/types"
 
 export default createStore({
   state: {
-    questions:[
-    {
-      front:"これは請求書です",
-      back:"This is an invoice"
-    },
-    {
-      front:"彼は部長です",
-      back:"he is a director"
-    },
-    {
-      front:"これは食器棚です",
-      back:"this is a cupboard"
-    }
-    ] as Question[],
-    modalMessages:[
+    sections:[
       {
-        header:"this is paragraph one",
-        body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-      },
-      {
-        header:"this is paragraph two",
-        body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-      },    {
-        header:"this is paragraph three",
-        body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-      }
-    ] as ModalMessage[]
+        id:"1",
+        name:"Test",
+        status:"new",
+        questions:[
+          {
+            front:"これは請求書です",
+            back:"This is an invoice"
+          },
+          {
+            front:"彼は部長です",
+            back:"he is a director"
+          },
+          {
+            front:"これは食器棚です",
+            back:"this is a cupboard"
+          }
+      ],
+      instructions:[
+        {
+          header:"this is paragraph one",
+          body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+        },
+        {
+          header:"this is paragraph two",
+          body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+        }, 
+        {
+          header:"this is paragraph three",
+          body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
+        }]
+    }]
   },
   mutations: {
-    addQuestion(state:State, 
-      payload:Question){
+    addSection(state, payload:Section){
       // stateへ
-      state.questions = [...state.questions,payload]
+      state.sections = [...state.sections,payload]
     },
-    addModalMessage(state:State, payload:ModalMessage){
-      // stateへ
-      state.modalMessages = [...state.modalMessages,payload]
-    }
   },
   actions: {
-    addQuestion(store, payload:Question){
-      alert("追加しました")
-      store.commit('addQuestion', payload)
-    },
-    addModalMessage(store, payload:ModalMessage){
-      // Mutationsへ
-      store.commit('addModalMessage', payload)
+    addSection(store, payload:Section){
+      store.commit('addSection', payload)
     }
   }
 })
-
-type Question = {
-  front:string,
-  back:string
-}
-type ModalMessage = {
-  header:string,
-  body:string
-}
-interface State{
-  questions:Question[];
-  modalMessages:ModalMessage[];
-}
