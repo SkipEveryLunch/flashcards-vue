@@ -43,7 +43,7 @@ export default createStore({
   },
   actions: {
     addQuestion(store, payload:Question){
-      // Mutationsへ
+      alert("追加しました")
       store.commit('addQuestion', payload)
     },
     addModalMessage(store, payload:ModalMessage){

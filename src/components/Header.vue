@@ -5,13 +5,18 @@
       <i class="far fa-lightbulb"></i> 
       {{appTitle}}
     </div>
-
-    <p>
-      made by
-      <a class="text-blue-300" href="https://google.com" target="_blank"
-      >SkipEveryLunch</a
-      >
-    </p>
+    <div class="flex justify-around">
+      <div>
+        <router-link class="text-blue-300" to="/"
+        >Study</router-link
+        >
+      </div>
+      <div>
+        <router-link class="text-blue-300" to="/edit"
+        >Edit</router-link
+        >
+      </div>
+    </div>
   </header>
 </template>
 <script>

@@ -1,12 +1,18 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import StudySection from '../views/StudySection.vue'
+import EditSection from '../views/EditSection.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'StudySection',
+    component: StudySection
   },
+  {
+    path: '/edit',
+    name: 'EditSection',
+    component: EditSection
+  }
 ]
 
 const router = createRouter({
