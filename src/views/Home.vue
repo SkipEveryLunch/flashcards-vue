@@ -18,10 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,ref } from 'vue';
+import { defineComponent,ref,computed } from 'vue';
 import CardsButton from "@/components/CardsButton.vue"
 import CardsText from '@/components/CardsText.vue';
 import Modal from '@/components/Modal.vue';
+import {useStore} from "vuex";
 
 export default defineComponent({
   name: 'Home',
@@ -31,6 +32,7 @@ export default defineComponent({
     Modal
   },
   setup(){
+    const store = useStore();
     const progress = ref(0);
     const phase = ref("answering");
     const showAnswer =()=>{
@@ -44,31 +46,12 @@ export default defineComponent({
         phase.value = "finished";
       }
     }
-    const questions = ref([
-      {
-        front:"これは請求書です",
-        back:"This is an invoice"
-      },
-      {
-        front:"彼は部長です",
-        back:"he is a director"
-      },
-      {
-        front:"これは食器棚です",
-        back:"this is a cupboard"
-      }
-    ])
-    const modalMessages = [{
-      header:"this is paragraph one",
-      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-    },
-    {
-      header:"this is paragraph two",
-      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-    },    {
-      header:"this is paragraph three",
-      body:"れれおらんのさららおりすらさ、さしるるるせろよるじろ、ごるる。れべっけせせじゅらぽっるっか、ぽれんのぺぺろっそ、ばろ"
-    }]
+    const questions = computed(()=>{
+      return store.state.questions;
+    });
+    const modalMessages = computed(()=>{
+      return store.state.modalMessages;
+    });
     const isModalOn = ref(true);
     const modalOff =()=>{
       isModalOn.value = false;
