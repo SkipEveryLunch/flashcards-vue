@@ -3,11 +3,16 @@
     <ul>
       <li v-for="section in sections"
       :key="section.id">
-          <router-link class="text-blue-300" 
+          <span><router-link class="text-blue-300" 
           :to="`/section/${section.id}`"
           >
           {{section.name}}
-          </router-link>
+          </router-link></span>
+          <span><router-link class="text-blue-300" 
+          :to="`/section/${section.id}/detail`"
+          >
+          Detail
+          </router-link></span>
       </li>
     </ul>
   </div>
@@ -33,22 +38,23 @@
   </div>
   </div>
 </template>
-<script>
-import {ref,computed} from "vue";
-import {useStore} from "vuex";
-import {Section} from "@/types"
+<script lang="ts">
+import {ref,onMounted} from "vue";
+import {Section} from "@/types";
+import axios from "axios";
 export default {
   name:"SectionsIndex",
   setup(){
-    const store = useStore();
-    const sections = computed(()=>{
-      return store.state.sections
-    })
+    const sections = ref<Section[]>([])
     const newSectionName = ref("")
     const createNewSection =()=>{
-      const newSection = new Section(newSectionName)
-      store.dispatch("addSection",newSection)
+      const newSection = new Section(newSectionName.value)
+      sections.value = [...sections.value,newSection]
     }
+      onMounted(async()=>{
+        const {data} = await axios.get("http://localhost:8000/api/sections")
+        sections.value = data;
+      })
     return{
       sections,
       newSectionName,

@@ -16,11 +16,16 @@ export class Section {
 
 }
 export interface Question {
+  id:string;
   front:string;
   back:string;
 }
 export interface Instruction {
+  id:string;
   header:string;
   body:string;
+}
+export interface Store{
+  sections:Section[]
 }
 export type LearningStatus = "new"|"learning"|"learnt";
