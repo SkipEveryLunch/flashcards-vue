@@ -9,13 +9,8 @@
   class="m-3 p-2"
     :key="instruction.id">
       <div>
-        <p>
-          {{instruction.header}}
-        </p>
-        <p>
-          {{instruction.body}}
-        </p>
-        <button>Edit</button>
+        <InstructionCard :id="instruction.id" :header="instruction.header" :body="instruction.body"
+        @onLoading="load"/>
       </div>
     </div>
     <input v-model="newInstructionData.header" type="text">
@@ -47,8 +42,12 @@ import {ref,onMounted,reactive} from "vue";
 import {useRoute} from "vue-router";
 import {Section} from "@/types";
 import axios from "axios";
+import InstructionCard from "@/components/InstructionCard.vue"
 export default {
   name: 'SectionDetail',
+  components:{
+    InstructionCard
+  },
   setup(){
     const route = useRoute();
     const {sectionId} = route.params;
@@ -95,7 +94,8 @@ export default {
       newInstructionData,
       newQuestionData,
       addInstruction,
-      addQuestion
+      addQuestion,
+      load
     }
   }
 };
