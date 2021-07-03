@@ -18,7 +18,9 @@
         <button>Edit</button>
       </div>
     </div>
-    <button>Add Instruction</button>
+    <input v-model="newInstructionData.header" type="text">
+    <input v-model="newInstructionData.body" type="text">
+    <button @click="addInstruction">Add Instruction</button>
     <div v-for="question in section.questions"
     class="m-3 p-2"
     :key="question.id">
@@ -32,13 +34,16 @@
         <button>Edit</button>
       </div>
     </div>
-    <button>Add Question</button>
+    <input v-model="newQuestionData.front" type="text">
+    <input v-model="newQuestionData.back" type="text">
+    <button @click="addQuestion">
+    Add Question</button>
   </div>
 </div>
 </template>
 
 <script lang="ts">
-import {ref,onMounted} from "vue";
+import {ref,onMounted,reactive} from "vue";
 import {useRoute} from "vue-router";
 import {Section} from "@/types";
 import axios from "axios";
@@ -46,13 +51,51 @@ export default {
   name: 'SectionDetail',
   setup(){
     const route = useRoute();
+    const {sectionId} = route.params;
     const section = ref<Section|null>(null);
-    onMounted(async ()=>{
-      const{data}= await axios.get(`http://localhost:8000/api/sections/${route.params.sectionId}`)
+    const newInstructionData = reactive({
+      header: '',
+      body: '',
+    });
+    const newQuestionData = reactive({
+      front: '',
+      back: '',
+    })
+    const addInstruction = async() =>{
+      const {data} = await axios.post(
+        "http://localhost:8000/api/instructions",
+        {...newInstructionData,
+        section_id:sectionId}
+      )
+      console.log(data);
+      newInstructionData.header = "";
+      newInstructionData.body = "";
+      load();
+    }
+    const addQuestion = async() =>{
+      const {data} = await axios.post(
+        "http://localhost:8000/api/questions",
+        {...newQuestionData,
+        section_id:sectionId}
+      )
+      console.log(data);
+      newQuestionData.front = "";
+      newQuestionData.back = "";
+      load();
+    }
+    const load = async()=>{
+      const{data}= await axios.get(`http://localhost:8000/api/sections/${sectionId}`)
       section.value = data;
+    }
+    onMounted(async ()=>{
+      load();
     })
     return{
-      section
+      section,
+      newInstructionData,
+      newQuestionData,
+      addInstruction,
+      addQuestion
     }
   }
 };
