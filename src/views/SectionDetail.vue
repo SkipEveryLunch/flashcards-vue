@@ -20,13 +20,8 @@
     class="m-3 p-2"
     :key="question.id">
       <div>
-        <p>
-          {{question.front}}
-        </p>
-        <p>
-          {{question.back}}
-        </p>
-        <button>Edit</button>
+        <QuestionCard :id="question.id" :front="question.front" :back="question.back"
+        @onLoading="load"/>
       </div>
     </div>
     <input v-model="newQuestionData.front" type="text">
@@ -42,11 +37,13 @@ import {ref,onMounted,reactive} from "vue";
 import {useRoute} from "vue-router";
 import {Section} from "@/types";
 import axios from "axios";
-import InstructionCard from "@/components/InstructionCard.vue"
+import InstructionCard from "@/components/InstructionCard.vue";
+import QuestionCard from "@/components/QuestionCard.vue";
 export default {
   name: 'SectionDetail',
   components:{
-    InstructionCard
+    InstructionCard,
+    QuestionCard
   },
   setup(){
     const route = useRoute();
