@@ -3,16 +3,9 @@
     <ul>
       <li v-for="section in sections"
       :key="section.id">
-          <span><router-link class="text-blue-300" 
-          :to="`/section/${section.id}`"
-          >
-          {{section.name}}
-          </router-link></span>
-          <span><router-link class="text-blue-300" 
-          :to="`/section/${section.id}/detail`"
-          >
-          Detail
-          </router-link></span>
+        <SectionCard
+        :name="section.name" :id="section.id"
+        />
       </li>
     </ul>
   </div>
@@ -40,10 +33,12 @@
 </template>
 <script lang="ts">
 import {ref,onMounted} from "vue";
+import SectionCard from "@/components/SectionCard.vue";
 import {Section} from "@/types";
 import axios from "axios";
 export default {
   name:"SectionsIndex",
+  components:{SectionCard},
   setup(){
     const sections = ref<Section[]>([])
     const newSectionName = ref("")
@@ -58,7 +53,7 @@ export default {
     return{
       sections,
       newSectionName,
-      createNewSection
+      createNewSection,
     }
   }
 }
