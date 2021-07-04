@@ -42,7 +42,7 @@ export default {
       password:"",
     })
     const onLogin =async()=>{
-      const {data} = axios.post(`http://localhost:8000/api/login`,formData);
+      const {data}= await axios.post("http://localhost:8000/api/login",formData,{ withCredentials: true });
       console.log(data);
     }
     return {

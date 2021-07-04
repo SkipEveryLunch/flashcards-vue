@@ -4,33 +4,28 @@ import SectionsIndex from '../views/SectionsIndex.vue'
 import SectionDetail from '../views/SectionDetail.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+import Wrapper from '@/components/Wrapper.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'SectionsIndex',
-    component: SectionsIndex
+    path:"",
+    component:Wrapper,
+    children:[
+      { path:"",component:SectionsIndex},
+      { path:"/section/:sectionId",component:StudySection},
+      {
+        path: '/section/:sectionId/detail',component: SectionDetail
+      },
+      {
+        path: '/register',
+        component: Register
+      },
+      {
+        path: '/login',
+        component: Login
+      },
+    ]
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/section/:sectionId',
-    name: 'StudySection',
-    component: StudySection
-  },
-  {
-    path: '/section/:sectionId/detail',
-    name: 'SectionDetail',
-    component: SectionDetail
-  }
 ]
 
 const router = createRouter({
