@@ -12,6 +12,14 @@
         >
       </div>
       <div>
+        <router-link class="text-blue-300" to="/register"
+        >Register</router-link
+        >
+      </div>
+      <div>
+        <router-link class="text-blue-300" to="/login"
+        >Login</router-link
+        >
       </div>
     </div>
   </header>

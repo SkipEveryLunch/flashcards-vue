@@ -41,7 +41,7 @@
       </div>
    </div>
 </template>
-<script lang="ts">
+<script>
 import {ref,reactive} from "vue";
 import axios from "axios";
 export default {
