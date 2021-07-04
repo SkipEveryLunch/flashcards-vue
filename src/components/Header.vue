@@ -27,7 +27,7 @@
         >
       </div>
       <div v-if="user.first_name !== undefined">
-        <router-link class="text-blue-300" to="/login"
+        <router-link class="text-blue-300" to="/profile"
         >{{name}}</router-link
         >
       </div>
