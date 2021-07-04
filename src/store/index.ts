@@ -13,11 +13,17 @@ export default createStore({
   mutations: {
     SET_USER:(state:State,user:User)=>{
       state.user = user;
-    }
+    },
+    DISCARD_USER:(state:State)=>{
+      state.user = new User();
+    },
   },
   actions: {
     setUser:({commit}:{commit:Commit},user:User)=>{
       commit("SET_USER",user);
+    },
+    discardUser:({commit}:{commit:Commit})=>{
+      commit("DISCARD_USER");
     }
   }
 })

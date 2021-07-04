@@ -17,7 +17,8 @@
         >
       </div>
       <div>
-        <span v-if="user.id">
+        <span v-if="user.id" @click="logout"
+        class="cursor-pointer">
           Logout
         </span>
         <router-link class="text-blue-300" to="/login"
@@ -25,7 +26,7 @@
         >Login</router-link
         >
       </div>
-      <div v-if="user.id !== null">
+      <div v-if="user.first_name !== undefined">
         <router-link class="text-blue-300" to="/login"
         >{{name}}</router-link
         >
@@ -46,11 +47,15 @@ export default {
     const user = computed(()=>{
       return store.state.user;
     });
+    const logout = async ()=>{
+      const {data} = await axios.delete("http://localhost:8000/api/logout",{ withCredentials: true });
+      store.dispatch("setUser",data);
+    }
     watch(user,()=>{
       name.value = `${user.value.first_name} ${user.value.last_name}`;
     });
     return {
-      appTitle,user,name
+      appTitle,user,name,logout
     };
   }
 }

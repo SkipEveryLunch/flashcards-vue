@@ -33,6 +33,8 @@
 </template>
 <script>
 import {reactive} from "vue";
+import {useRouter} from "vue-router";
+import {useStore} from "vuex";
 import axios from "axios"
 export default {
   name:"Register",
@@ -41,9 +43,21 @@ export default {
       email:"",
       password:"",
     })
+    const router = useRouter();
+    const store = useStore();
     const onLogin =async()=>{
-      const {data}= await axios.post("http://localhost:8000/api/login",formData,{ withCredentials: true });
-      console.log(data);
+      try{
+        const {status,data}= await axios.post("http://localhost:8000/api/login",formData,{ withCredentials: true });
+        if(status===200){
+          const {user} = data;
+          store.dispatch("setUser",user);
+          await router.push("/");
+        }else{
+          alert("Something went wrong...")
+        }
+      }catch(e){
+        alert("Something went wrong...")
+      }
     }
     return {
       formData,

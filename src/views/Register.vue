@@ -63,6 +63,7 @@
 </template>
 <script>
 import {reactive} from "vue";
+import {useRouter} from "vue-router";
 import axios from "axios"
 export default {
   name:"Register",
@@ -74,9 +75,15 @@ export default {
       password:"",
       password_conform:"",
     })
+    const router = useRouter();
     const onRegister =async()=>{
-      const {data} = axios.post(`http://localhost:8000/api/register`,formData);
-      console.log(data);
+      const {status} = await axios.post(`http://localhost:8000/api/register`,formData);
+      console.log(status)
+      if(status===201){
+          await router.push("/login");
+        }else{
+          alert("Something went wrong...")
+        }
     }
     return {
       formData,
