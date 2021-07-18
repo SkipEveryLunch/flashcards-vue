@@ -1,38 +1,37 @@
   
 <template>
-  <header class="text-center bg-blue-800 text-white p-4 mb-10">
-    <div class="text-2xl md:text-3xl font-bold mb-3">
-      <i class="far fa-lightbulb"></i> 
-      {{appTitle}}
+  <nav class="flex justify-between px-3 bg-blue-600 xl:px-5">
+    <div class="navContent">
+      <router-link to="/">
+        <i class="mr-2 far fa-lightbulb"></i> 
+        <span>{{appTitle}}</span>
+      </router-link>
     </div>
-    <div class="flex justify-around">
-      <div>
-        <router-link class="text-blue-300" to="/"
-        >Index</router-link
-        >
+    <div v-if="user.id" class="flex">
+      <div class="navContent">
+        <router-link  to="/profile">
+        {{name}}
+        </router-link>
       </div>
-      <div>
-        <router-link class="text-blue-300" to="/register"
-        >Register</router-link
-        >
-      </div>
-      <div>
-        <span v-if="user.id" @click="logout"
-        class="cursor-pointer">
-          Logout
+      <div class="navContent">
+        <span class="cursor-pointer"  @click="logout">
+        Logout
         </span>
-        <router-link class="text-blue-300" to="/login"
-        v-else
-        >Login</router-link
-        >
-      </div>
-      <div v-if="user.first_name !== undefined">
-        <router-link class="text-blue-300" to="/profile"
-        >{{name}}</router-link
-        >
       </div>
     </div>
-  </header>
+    <div v-else class="flex">
+      <div class="navContent">
+        <router-link  to="/login">
+        Login
+        </router-link>
+      </div>
+      <div class="navContent">
+        <router-link  to="/register">
+        Signin
+        </router-link>
+      </div>
+    </div>
+  </nav>
 </template>
 <script>
 import axios from "axios";
@@ -41,7 +40,7 @@ import {useStore} from "vuex";
 export default {
   name:"Header",
   setup(){
-    const appTitle = "Flash Cards App(temporary)";
+    const appTitle = "Flash Cards";
     const name = ref("");
     const store = useStore();
     const user = computed(()=>{
@@ -61,5 +60,7 @@ export default {
 }
 </script>
 <style>
-  
+  .navContent{
+    @apply px-2 py-5 xl:px-4 xl:text-2xl xl:py-7 text-white
+  }
 </style>
