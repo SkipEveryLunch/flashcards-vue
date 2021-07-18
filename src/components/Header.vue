@@ -8,15 +8,17 @@
       </router-link>
     </div>
     <div v-if="user.id" class="flex">
-      <div class="navContent">
-        <router-link  to="/profile">
-        {{name}}
-        </router-link>
-      </div>
-      <div class="navContent">
-        <span class="cursor-pointer"  @click="logout">
-        Logout
+      <div class="relative navContent">
+        <div class="flex items-center">
+        <span class="mr-2 cursor-pointer"
+        @click="toggleIsDropDownShown">
+                {{name}}
         </span>
+        <i v-if="!isDropDownShown" class="fas fa-sort-down"/>
+        <i v-else class="fas fa-caret-up"/>
+        </div>
+        <ProfileDropDown v-if="isDropDownShown"
+        @logout="logout"/>
       </div>
     </div>
     <div v-else class="flex">
@@ -37,8 +39,10 @@
 import axios from "axios";
 import {computed,ref,watch} from "vue";
 import {useStore} from "vuex";
+import ProfileDropDown from "./ProfileDropDown.vue";
 export default {
   name:"Header",
+  components:{ProfileDropDown},
   setup(){
     const appTitle = "Flash Cards";
     const name = ref("");
@@ -46,6 +50,10 @@ export default {
     const user = computed(()=>{
       return store.state.user;
     });
+    const isDropDownShown = ref(false);
+    const toggleIsDropDownShown = ()=>{
+      isDropDownShown.value=!isDropDownShown.value;
+    }
     const logout = async ()=>{
       const {data} = await axios.delete("http://localhost:8000/api/logout",{ withCredentials: true });
       store.dispatch("setUser",data);
@@ -54,7 +62,8 @@ export default {
       name.value = `${user.value.first_name} ${user.value.last_name}`;
     });
     return {
-      appTitle,user,name,logout
+      appTitle,user,name,logout,
+      toggleIsDropDownShown,isDropDownShown
     };
   }
 }
