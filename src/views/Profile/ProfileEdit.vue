@@ -49,26 +49,27 @@
   </div>
 </template>
 <script>
-import {reactive,watch} from "vue"
+import {reactive,onMounted} from "vue"
+import {useStore} from "vuex"
 import axios from "axios";
 export default {
   name:"Profile",
-  props:["user"],
-  setup(props){
+  setup(){
+    const store = useStore();
     const newUserForm = reactive({
-      first_name:props.user?.first_name,
-      last_name:props.user?.last_name,
-      email:props.user?.email,
+      first_name:"",
+      last_name:"",
+      email:"",
     })
     const newPasswordForm = reactive({
       password:"",
       password_confirm:""
     })
-    watch(user,()=>{
-      newUserForm.first_name=props.user?.first_name,
-      newUserForm.last_name=props.user?.last_name,
-      newUserForm.email=props.user?.email,
-    });
+    onMounted(()=>{
+      newUserForm.first_name = store.state.user.first_name;
+      newUserForm.last_name = store.state.user.last_name;
+      newUserForm.email = store.state.user.email;
+    })
     const onUpdateInfo =async()=>{
       const {status} = await axios.put(`http://localhost:8000/api/user/info`,newUserForm
       ,{ withCredentials: true });

@@ -4,7 +4,9 @@ import SectionsIndex from '../views/SectionsIndex.vue'
 import SectionDetail from '../views/SectionDetail.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import Profile from '../views/Profile.vue'
+
+import ProfileShow from '../views/Profile/ProfileShow.vue'
+import ProfileEdit from '../views/Profile/ProfileEdit.vue'
 import Wrapper from '@/components/Wrapper.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,8 +28,12 @@ const routes: Array<RouteRecordRaw> = [
         component: Login
       },
       {
-        path: '/profile',
-        component: Profile
+        path: '/profile_show',
+        component: ProfileShow
+      },
+      {
+        path: '/profile_edit',
+        component: ProfileEdit
       },
     ]
   },

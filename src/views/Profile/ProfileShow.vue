@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div class="flex justify-center w-full">
     <form class="flex flex-col max-w-sm">
       <div class="formWrapper">
@@ -20,8 +20,24 @@
   </div>
 </template>
 <script>
+import {ref,computed} from "vue"
+import {useStore} from "vuex"
 export default {
   name:"Profile",
-  props:["user"]
+  setup(){
+    const store = useStore();
+    const isEditMode = ref(false);
+    const toggleIsEditMode =()=>{
+      isEditMode.value = !isEditMode.value;
+    }
+    const user = computed(()=>{
+      return store.state.user
+    })
+    return{
+      user,
+      isEditMode,
+      toggleIsEditMode
+    }
+  }
 }
 </script>

@@ -9,13 +9,19 @@
     </div>
     <div v-if="user.id" class="flex">
       <div class="relative navContent">
-        <div class="flex items-center">
-        <span class="mr-2 cursor-pointer"
-        @click="toggleIsDropDownShown">
+        <div class="flex items-center"
+        @click="toggleIsDropDownShown"
+        @blur="toggleIsDropDownShown">
+        <span class="mr-2 cursor-pointer">
                 {{name}}
         </span>
-        <i v-if="!isDropDownShown" class="fas fa-sort-down"/>
-        <i v-else class="fas fa-caret-up"/>
+        <span class="mt-1 ml-1 text-sm" v-if="!isDropDownShown">
+          ▼
+        </span>
+        <span class="mt-1 ml-1 text-sm" 
+        v-else>
+          ▲
+        </span>
         </div>
         <ProfileDropDown v-if="isDropDownShown"
         @logout="logout"/>
