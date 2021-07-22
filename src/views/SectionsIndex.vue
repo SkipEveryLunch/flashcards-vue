@@ -33,7 +33,8 @@
         </div>
       </div>
       <AddSectionCard
-      @on-discard="toggleIsCreateMode"/>
+      @on-discard="toggleIsCreateMode"
+      @reload="load"/>
     </div>
   </div>
 </template>
@@ -52,14 +53,18 @@ export default {
     const toggleIsCreateMode =()=>{
       isCreateMode.value = !isCreateMode.value
     }
-      onMounted(async()=>{
+      onMounted(()=>{
+        load()
+      })
+      const load =async()=>{
         const {data} = await axios.get("sections")
         sections.value = data;
-      })
+      }
     return{
       sections,
       isCreateMode,
-      toggleIsCreateMode
+      toggleIsCreateMode,
+      load
     }
   }
 }

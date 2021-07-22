@@ -16,15 +16,21 @@
 <script>
 import {ref} from "vue"
 import {Section} from "@/types";
-// import axios from "axios"
+import axios from "axios"
 export default {
   name:"AddSectionCard",
-  emits:["on-dicard"],
+  emits:["on-dicard","reload"],
   setup(_props,{emit}){
       const newSectionName = ref("")
-      const createNewSection =()=>{
-         const newSection = new Section(newSectionName.value)
-         alert("added new section")
+      const createNewSection =async()=>{
+         const {status}= await axios.post("sections",{name:newSectionName.value})
+         console.log(status)
+         if(status===201){
+            onDiscard()
+            emit("reload")
+         }else{
+            alert("something goes wrong...")
+         }
       }
       const onDiscard =()=>{
          emit("on-discard")
