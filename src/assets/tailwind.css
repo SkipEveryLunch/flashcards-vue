@@ -16,7 +16,7 @@
     @apply flex items-center m-3
   }
   .formInput{
-    @apply w-full border-2 border-gray-200 rounded mx-2
+    @apply w-full border-2 border-gray-200 rounded mx-2 px-2 py-1
     focus:outline-none focus:border-gray-400
   }
   .btnbox-bottom{
