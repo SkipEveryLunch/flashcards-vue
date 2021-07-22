@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user?.id"
+  <div v-if="user.id"
   class="flex justify-center w-full">
     <form class="flex flex-col max-w-sm">
       <div class="formWrapper">
@@ -20,10 +20,11 @@
     </form>
   </div>
 </template>
-<script>
+<script language="ts">
 import {ref,onMounted} from "vue"
 import {useStore} from "vuex"
 import {useRouter} from "vue-router";
+import {User} from "@/models/User"
 export default {
   name:"Profile",
   setup(){
@@ -33,7 +34,7 @@ export default {
     const toggleIsEditMode =()=>{
       isEditMode.value = !isEditMode.value;
     }
-    const user = ref(null);
+    const user = ref(new User());
     onMounted(()=>{
       if(store.state.user?.id){
         user.value = store.state.user

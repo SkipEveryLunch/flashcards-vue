@@ -19,4 +19,7 @@
     @apply w-full border-2 border-gray-200 rounded mx-2
     focus:outline-none focus:border-gray-400
   }
+  .btnbox-bottom{
+    @apply fixed bottom-0 flex p-3 transform -translate-x-1/2 mb-14 left-1/2
+  }
 }

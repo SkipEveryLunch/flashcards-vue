@@ -1,19 +1,20 @@
 <template>
-  <div class="flex justify-center">
+  <div class="btnbox-bottom">
     <button
-    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+    class="btn btn-blue"
     v-if="phase==='answering'" @click="showAnswer">Answer</button>
     <button 
-    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+    class="btn btn-blue"
     v-else-if="phase==='checking'"
     @click="nextQuestion">
       Next
     </button>
-    <button 
-    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+    <router-link to="/"
     v-else-if="phase==='finished'">
+    <button class="btn">
       Finished
     </button>
+    </router-link>
   </div>
 </template>
 <script>
