@@ -1,5 +1,6 @@
 <template lang="">
-  <div class="flex justify-center w-full">
+  <div v-if="user?.id"
+  class="flex justify-center w-full">
     <form class="flex flex-col max-w-sm">
       <div class="formWrapper">
         <label class="whitespace-nowrap">
@@ -51,11 +52,13 @@
 <script>
 import {reactive,onMounted} from "vue"
 import {useStore} from "vuex"
+import {useRouter} from "vue-router";
 import axios from "axios";
 export default {
   name:"Profile",
   setup(){
     const store = useStore();
+    const router = useRouter();
     const newUserForm = reactive({
       first_name:"",
       last_name:"",
@@ -66,9 +69,13 @@ export default {
       password_confirm:""
     })
     onMounted(()=>{
-      newUserForm.first_name = store.state.user.first_name;
-      newUserForm.last_name = store.state.user.last_name;
-      newUserForm.email = store.state.user.email;
+      if(store.state.user?.id){
+        newUserForm.first_name = store.state.user.first_name;
+        newUserForm.last_name = store.state.user.last_name;
+        newUserForm.email = store.state.user.email;
+      }else{
+        router.push("/login");
+      }
     })
     const onUpdateInfo =async()=>{
       const {status} = await axios.put(`user/info`,newUserForm);

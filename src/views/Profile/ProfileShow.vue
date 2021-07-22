@@ -1,5 +1,6 @@
 <template>
-  <div class="flex justify-center w-full">
+  <div v-if="user?.id"
+  class="flex justify-center w-full">
     <form class="flex flex-col max-w-sm">
       <div class="formWrapper">
         <div class="whitespace-nowrap">
@@ -20,18 +21,25 @@
   </div>
 </template>
 <script>
-import {ref,computed} from "vue"
+import {ref,onMounted} from "vue"
 import {useStore} from "vuex"
+import {useRouter} from "vue-router";
 export default {
   name:"Profile",
   setup(){
     const store = useStore();
+    const router = useRouter();
     const isEditMode = ref(false);
     const toggleIsEditMode =()=>{
       isEditMode.value = !isEditMode.value;
     }
-    const user = computed(()=>{
-      return store.state.user
+    const user = ref(null);
+    onMounted(()=>{
+      if(store.state.user?.id){
+        user.value = store.state.user
+      }else{
+        router.push("/login");
+      }
     })
     return{
       user,
