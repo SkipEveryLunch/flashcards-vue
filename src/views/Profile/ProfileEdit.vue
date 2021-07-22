@@ -71,8 +71,7 @@ export default {
       newUserForm.email = store.state.user.email;
     })
     const onUpdateInfo =async()=>{
-      const {status} = await axios.put(`http://localhost:8000/api/user/info`,newUserForm
-      ,{ withCredentials: true });
+      const {status} = await axios.put(`user/info`,newUserForm);
       if(status===202){
           alert("updated")
         }else{
@@ -81,9 +80,9 @@ export default {
     }
     const onUpdatePassword =async()=>{
       if(newPasswordForm.password===newPasswordForm.password_confirm){
-        const {status} = await axios.put(`http://localhost:8000/api/user/password`,{
+        const {status} = await axios.put(`user/password`,{
         password:newPasswordForm.password
-        },{ withCredentials: true });
+        });
         if(status===202){
           alert("updated")
         }else{

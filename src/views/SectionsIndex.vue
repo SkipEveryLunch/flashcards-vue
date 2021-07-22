@@ -47,7 +47,7 @@ export default {
       sections.value = [...sections.value,newSection]
     }
       onMounted(async()=>{
-        const {data} = await axios.get("http://localhost:8000/api/sections")
+        const {data} = await axios.get("sections")
         sections.value = data;
       })
     return{

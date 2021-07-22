@@ -58,7 +58,7 @@ export default {
     })
     const router = useRouter();
     const onRegister =async()=>{
-      const {status} = await axios.post(`http://localhost:8000/api/register`,formData);
+      const {status} = await axios.post(`register`,formData);
       console.log(status)
       if(status===201){
           await router.push("/login");

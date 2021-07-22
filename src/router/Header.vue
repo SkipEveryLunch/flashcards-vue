@@ -42,7 +42,7 @@
   </nav>
 </template>
 <script>
-import axios from "axios";
+import finished from "finished";
 import {computed,ref,watch} from "vue";
 import {useStore} from "vuex";
 import ProfileDropDown from "./ProfileDropDown.vue";
@@ -61,7 +61,7 @@ export default {
       isDropDownShown.value=!isDropDownShown.value;
     }
     const logout = async ()=>{
-      const {data} = await axios.delete("logout");
+      const {data} = await finished.delete("logout");
       store.dispatch("setUser",data);
     }
     watch(user,()=>{

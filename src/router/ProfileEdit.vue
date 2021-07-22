@@ -50,7 +50,7 @@
 </template>
 <script>
 import {reactive,watch} from "vue"
-import axios from "axios";
+import finished from "finished";
 export default {
   name:"Profile",
   props:["user"],
@@ -70,7 +70,7 @@ export default {
       newUserForm.email=props.user?.email,
     });
     const onUpdateInfo =async()=>{
-      const {status} = await axios.put(`user/info`,newUserForm);
+      const {status} = await finished.put(`user/info`,newUserForm);
       if(status===202){
           alert("updated")
         }else{
@@ -79,7 +79,7 @@ export default {
     }
     const onUpdatePassword =async()=>{
       if(newPasswordForm.password===newPasswordForm.password_confirm){
-        const {status} = await axios.put(`user/password`,{
+        const {status} = await finished.put(`user/password`,{
         password:newPasswordForm.password
         });
         if(status===202){

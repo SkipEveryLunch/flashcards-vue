@@ -8,6 +8,10 @@ import Login from '../views/Login.vue'
 import ProfileShow from '../views/Profile/ProfileShow.vue'
 import ProfileEdit from '../views/Profile/ProfileEdit.vue'
 import Wrapper from '@/components/Wrapper.vue'
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:8000/api/";
+axios.defaults.withCredentials = true;
 
 const routes: Array<RouteRecordRaw> = [
   {

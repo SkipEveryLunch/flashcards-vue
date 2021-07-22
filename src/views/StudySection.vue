@@ -58,7 +58,7 @@ export default {
       }
     const section = ref<Section|null>(null);
     onMounted(async ()=>{
-      const{data}= await axios.get(`http://localhost:8000/api/sections/${route.params.sectionId}`)
+      const{data}= await axios.get(`sections/${route.params.sectionId}`)
       section.value = data;
     })
     const questions = section.value?.questions??[];

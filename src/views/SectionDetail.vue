@@ -59,7 +59,7 @@ export default {
     })
     const addInstruction = async() =>{
       const {data} = await axios.post(
-        "http://localhost:8000/api/instructions",
+        "instructions",
         {...newInstructionData,
         section_id:sectionId}
       )
@@ -70,7 +70,7 @@ export default {
     }
     const addQuestion = async() =>{
       const {data} = await axios.post(
-        "http://localhost:8000/api/questions",
+        "questions",
         {...newQuestionData,
         section_id:sectionId}
       )
@@ -80,7 +80,7 @@ export default {
       load();
     }
     const load = async()=>{
-      const{data}= await axios.get(`http://localhost:8000/api/sections/${sectionId}`)
+      const{data}= await axios.get(`sections/${sectionId}`)
       section.value = data;
     }
     onMounted(async ()=>{

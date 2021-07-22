@@ -38,9 +38,10 @@ export default {
     const store = useStore();
     const onLogin =async()=>{
       try{
-        const {status,data}= await axios.post("http://localhost:8000/api/login",formData,{ withCredentials: true });
-        if(status===200){
-          const {user} = data;
+        const res = await axios.post("login",formData);
+        if(res.status===200){
+          const {user} = res.data;
+          console.log(res)
           store.dispatch("setUser",user);
           await router.push("/");
         }else{
